@@ -641,7 +641,7 @@ const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.black }}>
       {/* Header Section */}
-      <View style={{ height: 200 }}>
+      <View style={{ height: 200, marginTop: 20 }}>
         {renderHeader(profile)}
         {renderButtonSection()}
       </View>
@@ -656,6 +656,9 @@ const Home = ({ navigation }) => {
           <View>{renderCategoryHeader()}</View>
           <View>{renderCategoryData()}</View>
         </View>
+
+        <View>{renderMyBookSection(myBooks)}</View>
+        <View>{renderMyBookSection(myBooks)}</View>
       </ScrollView>
     </SafeAreaView>
   );

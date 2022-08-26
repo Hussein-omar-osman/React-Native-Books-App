@@ -1,12 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 
-// import { BookDetail } from './screens/';
-// import Tabs from './navigation/tabs';
+import { BookDetail, Home } from './screens/';
+import Tabs from './navigation/tabs';
 import { useFonts } from 'expo-font';
-import Home from './screens/Home';
 
 const theme = {
   ...DefaultTheme,
@@ -18,7 +16,7 @@ const theme = {
 
 const Stack = createStackNavigator();
 
-export default function App() {
+const App = () => {
   const [loaded] = useFonts({
     'Roboto-Black': require('./assets/fonts/Roboto-Black.ttf'),
     'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
@@ -28,7 +26,6 @@ export default function App() {
   if (!loaded) {
     return null;
   }
-
   return (
     <NavigationContainer theme={theme}>
       <Stack.Navigator
@@ -41,14 +38,16 @@ export default function App() {
         <Stack.Screen name='Home' component={Home} />
 
         {/* Screens */}
-        {/* <Stack.Screen
+        <Stack.Screen
           name='BookDetail'
           component={BookDetail}
           options={{ headerShown: false }}
-        /> */}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
-// const styles = StyleSheet.create();
+export default App;
+
+// jpj
