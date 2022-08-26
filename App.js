@@ -34,10 +34,8 @@ const App = () => {
         }}
         initialRouteName={'Home'}
       >
-        {/* Tabs */}
         <Stack.Screen name='Home' component={Home} />
 
-        {/* Screens */}
         <Stack.Screen
           name='BookDetail'
           component={BookDetail}
