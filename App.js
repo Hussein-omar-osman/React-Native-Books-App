@@ -4,8 +4,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 
 // import { BookDetail } from './screens/';
-import Tabs from './navigation/tabs';
+// import Tabs from './navigation/tabs';
 import { useFonts } from 'expo-font';
+import Home from './screens/Home';
 
 const theme = {
   ...DefaultTheme,
@@ -37,7 +38,7 @@ export default function App() {
         initialRouteName={'Home'}
       >
         {/* Tabs */}
-        <Stack.Screen name='Home' component={Tabs} />
+        <Stack.Screen name='Home' component={Home} />
 
         {/* Screens */}
         {/* <Stack.Screen
