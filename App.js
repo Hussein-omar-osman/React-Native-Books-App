@@ -3,8 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 
 import { BookDetail, Home } from './screens/';
-import Tabs from './navigation/tabs';
 import { useFonts } from 'expo-font';
+import { View, Text, Button } from 'react-native';
 
 const theme = {
   ...DefaultTheme,
@@ -32,10 +32,10 @@ const App = () => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName={'Home'}
+        // initialRouteName={'Home'}
       >
+        <Stack.Screen name='Dammy' component={Dammy} />
         <Stack.Screen name='Home' component={Home} />
-
         <Stack.Screen
           name='BookDetail'
           component={BookDetail}
@@ -45,6 +45,15 @@ const App = () => {
     </NavigationContainer>
   );
 };
+
+function Dammy({ navigation }) {
+  return (
+    <View style={{ padding: 40 }}>
+      <Text>Just dammy</Text>
+      <Button title='home' onPress={() => navigation.navigate('Home')} />
+    </View>
+  );
+}
 
 export default App;
 
