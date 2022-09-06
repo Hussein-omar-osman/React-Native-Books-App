@@ -8,6 +8,7 @@ import {
   ScrollView,
   FlatList,
 } from 'react-native';
+import BookSection from '../components/BookSection';
 import ButtonsSection from '../components/ButtonsSection';
 import Header from '../components/Header';
 
@@ -108,112 +109,112 @@ const Home = ({ navigation }) => {
   const [categories, setCategories] = React.useState(categoriesData);
   const [selectedCategory, setSelectedCategory] = React.useState(1);
 
-  function renderMyBookSection(myBooks) {
-    const renderItem = ({ item, index }) => {
-      return (
-        <TouchableOpacity
-          style={{
-            flex: 1,
-            marginLeft: index == 0 ? SIZES.padding : 0,
-            marginRight: SIZES.radius,
-          }}
-          onPress={() =>
-            navigation.navigate('BookDetail', {
-              book: item,
-            })
-          }
-        >
-          {/* Book Cover */}
-          <Image
-            source={item.bookCover}
-            resizeMode='cover'
-            style={{
-              width: 180,
-              height: 250,
-              borderRadius: 20,
-            }}
-          />
+  // function renderMyBookSection(myBooks) {
+  //   const renderItem = ({ item, index }) => {
+  //     return (
+  //       <TouchableOpacity
+  //         style={{
+  //           flex: 1,
+  //           marginLeft: index == 0 ? SIZES.padding : 0,
+  //           marginRight: SIZES.radius,
+  //         }}
+  //         onPress={() =>
+  //           navigation.navigate('BookDetail', {
+  //             book: item,
+  //           })
+  //         }
+  //       >
+  //         {/* Book Cover */}
+  //         <Image
+  //           source={item.bookCover}
+  //           resizeMode='cover'
+  //           style={{
+  //             width: 180,
+  //             height: 250,
+  //             borderRadius: 20,
+  //           }}
+  //         />
 
-          {/* Book Info */}
-          <View
-            style={{
-              marginTop: SIZES.radius,
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
-          >
-            <Image
-              source={icons.clock_icon}
-              style={{
-                width: 20,
-                height: 20,
-                tintColor: COLORS.lightGray,
-              }}
-            />
-            <Text
-              style={{ marginLeft: 5, ...FONTS.body3, color: COLORS.lightGray }}
-            >
-              {item.lastRead}
-            </Text>
+  //         {/* Book Info */}
+  //         <View
+  //           style={{
+  //             marginTop: SIZES.radius,
+  //             flexDirection: 'row',
+  //             alignItems: 'center',
+  //           }}
+  //         >
+  //           <Image
+  //             source={icons.clock_icon}
+  //             style={{
+  //               width: 20,
+  //               height: 20,
+  //               tintColor: COLORS.lightGray,
+  //             }}
+  //           />
+  //           <Text
+  //             style={{ marginLeft: 5, ...FONTS.body3, color: COLORS.lightGray }}
+  //           >
+  //             {item.lastRead}
+  //           </Text>
 
-            <Image
-              source={icons.page_icon}
-              style={{
-                marginLeft: SIZES.radius,
-                width: 20,
-                height: 20,
-                tintColor: COLORS.lightGray,
-              }}
-            />
-            <Text
-              style={{ marginLeft: 5, ...FONTS.body3, color: COLORS.lightGray }}
-            >
-              {item.completion}
-            </Text>
-          </View>
-        </TouchableOpacity>
-      );
-    };
+  //           <Image
+  //             source={icons.page_icon}
+  //             style={{
+  //               marginLeft: SIZES.radius,
+  //               width: 20,
+  //               height: 20,
+  //               tintColor: COLORS.lightGray,
+  //             }}
+  //           />
+  //           <Text
+  //             style={{ marginLeft: 5, ...FONTS.body3, color: COLORS.lightGray }}
+  //           >
+  //             {item.completion}
+  //           </Text>
+  //         </View>
+  //       </TouchableOpacity>
+  //     );
+  //   };
 
-    return (
-      <View style={{ flex: 1 }}>
-        {/* Header */}
-        <View
-          style={{
-            paddingHorizontal: SIZES.padding,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Text style={{ ...FONTS.h2, color: COLORS.white }}>My Book</Text>
+  //   return (
+  //     <View style={{ flex: 1 }}>
+  //       {/* Header */}
+  //       <View
+  //         style={{
+  //           paddingHorizontal: SIZES.padding,
+  //           flexDirection: 'row',
+  //           justifyContent: 'space-between',
+  //         }}
+  //       >
+  //         <Text style={{ ...FONTS.h2, color: COLORS.white }}>My Book</Text>
 
-          <TouchableOpacity onPress={() => console.log('See More')}>
-            <Text
-              style={{
-                ...FONTS.body3,
-                color: COLORS.lightGray,
-                alignSelf: 'flex-start',
-                textDecorationLine: 'underline',
-              }}
-            >
-              see more
-            </Text>
-          </TouchableOpacity>
-        </View>
+  //         <TouchableOpacity onPress={() => console.log('See More')}>
+  //           <Text
+  //             style={{
+  //               ...FONTS.body3,
+  //               color: COLORS.lightGray,
+  //               alignSelf: 'flex-start',
+  //               textDecorationLine: 'underline',
+  //             }}
+  //           >
+  //             see more
+  //           </Text>
+  //         </TouchableOpacity>
+  //       </View>
 
-        {/* Books */}
-        <View style={{ flex: 1, marginTop: SIZES.padding }}>
-          <FlatList
-            data={myBooks}
-            renderItem={renderItem}
-            keyExtractor={(item) => `${item.id}`}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-          />
-        </View>
-      </View>
-    );
-  }
+  //       {/* Books */}
+  //       <View style={{ flex: 1, marginTop: SIZES.padding }}>
+  //         <FlatList
+  //           data={myBooks}
+  //           renderItem={renderItem}
+  //           keyExtractor={(item) => `${item.id}`}
+  //           horizontal
+  //           showsHorizontalScrollIndicator={false}
+  //         />
+  //       </View>
+  //     </View>
+  //   );
+  // }
 
   function renderCategoryHeader() {
     const renderItem = ({ item }) => {
@@ -438,16 +439,18 @@ const Home = ({ navigation }) => {
       {/* Body Section */}
       <ScrollView style={{ marginTop: SIZES.radius }}>
         {/* Books Section */}
-        <View>{renderMyBookSection(myBooks)}</View>
-
-        {/* Categories Section */}
-        <View style={{ marginTop: SIZES.padding }}>
-          <View>{renderCategoryHeader()}</View>
-          <View>{renderCategoryData()}</View>
+        <View>
+          <BookSection myBooks={myBooks} />
         </View>
 
-        <View>{renderMyBookSection(myBooks)}</View>
-        <View>{renderMyBookSection(myBooks)}</View>
+        {/* Categories Section */}
+        {/* <View style={{ marginTop: SIZES.padding }}>
+          <View>{renderCategoryHeader()}</View>
+          <View>{renderCategoryData()}</View>
+        </View> */}
+
+        {/* <View>{renderMyBookSection(myBooks)}</View>
+        <View>{renderMyBookSection(myBooks)}</View> */}
       </ScrollView>
     </SafeAreaView>
   );
