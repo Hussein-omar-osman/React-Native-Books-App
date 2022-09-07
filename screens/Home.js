@@ -16,7 +16,7 @@ import { COLORS, FONTS, SIZES, icons, images } from '../constants';
 
 const Home = ({ navigation }) => {
   const profileData = {
-    name: 'Username',
+    name: 'Hussein',
     point: 200,
   };
 
@@ -432,7 +432,7 @@ const Home = ({ navigation }) => {
       {/* Header Section */}
       <View style={{ height: 200, marginTop: 20 }}>
         {/* {Header(profile)} */}
-        <Header profile={profile} />
+        <Header profile={profile} setProfile={setProfile} />
         <ButtonsSection />
       </View>
 

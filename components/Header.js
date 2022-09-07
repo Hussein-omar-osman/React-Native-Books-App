@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 
 import { COLORS, FONTS, SIZES, icons } from '../constants';
 
-function Header({ profile }) {
+function Header({ profile, setProfile }) {
   return (
     <View
       style={{
@@ -32,8 +32,9 @@ function Header({ profile }) {
           paddingRight: SIZES.radius,
           borderRadius: 20,
         }}
+        activeOpacity={0.9}
         onPress={() => {
-          console.log('Point');
+          setProfile((prev) => ({ ...prev, point: prev.point + 1 }));
         }}
       >
         <View
