@@ -8,6 +8,7 @@ import {
   ScrollView,
   Animated,
 } from 'react-native';
+import BookInfoSection from '../components/BookInfoSection';
 import { FONTS, COLORS, SIZES, icons } from '../constants';
 
 const LineDivider = () => {
@@ -321,7 +322,7 @@ const BookDetail = ({ route, navigation }) => {
     return (
       <View style={{ flex: 1, backgroundColor: COLORS.black }}>
         {/* Book Cover Section */}
-        <View style={{ flex: 5 }}>{renderBookInfoSection()}</View>
+        <View style={{ flex: 5 }}>{<BookInfoSection book={book} />}</View>
 
         {/* Description */}
         <View style={{ flex: 3 }}>{renderBookDescription()}</View>
