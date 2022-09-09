@@ -9,6 +9,7 @@ import {
   Animated,
 } from 'react-native';
 import BookInfoSection from '../components/BookInfoSection';
+import BookDescription from '../components/BookDescription';
 import { FONTS, COLORS, SIZES, icons } from '../constants';
 
 const LineDivider = () => {
@@ -325,7 +326,7 @@ const BookDetail = ({ route, navigation }) => {
         <View style={{ flex: 5 }}>{<BookInfoSection book={book} />}</View>
 
         {/* Description */}
-        <View style={{ flex: 3 }}>{renderBookDescription()}</View>
+        <View style={{ flex: 3 }}>{<BookDescription book={book} />}</View>
 
         {/* Buttons */}
         <View style={{ height: 70, marginBottom: 30 }}>
