@@ -8,10 +8,12 @@ import {
   ScrollView,
   Animated,
 } from 'react-native';
-import BookInfoSection from '../components/BookInfoSection';
-import BookDescription from '../components/BookDescription';
 import { FONTS, COLORS, SIZES, icons } from '../constants';
-import BookBottomButton from '../components/BookBottomButton';
+import {
+  BookInfoSection,
+  BookDescription,
+  BookBottomButton,
+} from '../components';
 
 const LineDivider = () => {
   return (

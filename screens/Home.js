@@ -8,9 +8,7 @@ import {
   ScrollView,
   FlatList,
 } from 'react-native';
-import BookSection from '../components/BookSection';
-import ButtonsSection from '../components/ButtonsSection';
-import Header from '../components/Header';
+import { BookSection, ButtonsSection, Header } from '../components';
 
 import { COLORS, FONTS, SIZES, icons, images } from '../constants';
 
