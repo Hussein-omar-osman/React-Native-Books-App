@@ -11,6 +11,7 @@ import {
 import BookInfoSection from '../components/BookInfoSection';
 import BookDescription from '../components/BookDescription';
 import { FONTS, COLORS, SIZES, icons } from '../constants';
+import BookBottomButton from '../components/BookBottomButton';
 
 const LineDivider = () => {
   return (
@@ -330,7 +331,7 @@ const BookDetail = ({ route, navigation }) => {
 
         {/* Buttons */}
         <View style={{ height: 70, marginBottom: 30 }}>
-          {renderBottomButton()}
+          {<BookBottomButton />}
         </View>
       </View>
     );
