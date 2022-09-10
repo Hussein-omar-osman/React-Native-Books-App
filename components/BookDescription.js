@@ -1,8 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Text, ScrollView, Animated } from 'react-native';
-import { COLORS, FONTS, SIZES, icons } from '../constants';
-import LineDivider from './LineDivider';
+import { COLORS, FONTS, SIZES } from '../constants';
 
 const BookDescription = ({ book }) => {
   const [scrollViewWholeHeight, setScrollViewWholeHeight] = React.useState(1);

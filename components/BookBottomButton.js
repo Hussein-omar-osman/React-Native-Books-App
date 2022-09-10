@@ -1,14 +1,6 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  Animated,
-  Image,
-} from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { COLORS, FONTS, SIZES, icons } from '../constants';
-import LineDivider from './LineDivider';
 
 const BookBottomButton = () => {
   return (

@@ -1,28 +1,14 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ImageBackground,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  Animated,
-} from 'react-native';
-import { FONTS, COLORS, SIZES, icons } from '../constants';
+import { View } from 'react-native';
+import { COLORS } from '../constants';
 import {
   BookInfoSection,
   BookDescription,
   BookBottomButton,
 } from '../components';
 
-const BookDetail = ({ route, navigation }) => {
+const BookDetail = ({ route }) => {
   const [book, setBook] = React.useState(null);
-
-  const [scrollViewWholeHeight, setScrollViewWholeHeight] = React.useState(1);
-  const [scrollViewVisibleHeight, setScrollViewVisibleHeight] =
-    React.useState(0);
-
-  const indicator = new Animated.Value(0);
 
   React.useEffect(() => {
     let { book } = route.params;
