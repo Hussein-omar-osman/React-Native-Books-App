@@ -4,7 +4,6 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 
 import { BookDetail, Home, Search } from './screens/';
 import { useFonts } from 'expo-font';
-import { View, Text, Button } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 const theme = {
@@ -34,9 +33,7 @@ const App = () => {
           screenOptions={{
             headerShown: false,
           }}
-          // initialRouteName={'Home'}
         >
-          {/* <Stack.Screen name='Dammy' component={Dammy} /> */}
           <Stack.Screen name='Home' component={Home} />
           <Stack.Screen name='BookDetail' component={BookDetail} />
           <Stack.Screen name='Search' component={Search} />
@@ -47,15 +44,4 @@ const App = () => {
   );
 };
 
-function Dammy({ navigation }) {
-  return (
-    <View style={{ padding: 40 }}>
-      <Text>Just dammy</Text>
-      <Button title='home' onPress={() => navigation.navigate('Home')} />
-    </View>
-  );
-}
-
 export default App;
-
-// jpj
