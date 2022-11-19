@@ -16,7 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const Search = () => {
   const navigation = useNavigation();
-  const [booksData, setBooksData] = useState({});
+  const [booksData, setBooksData] = useState([]);
   const getData = async (search) => {
     try {
       const res = await fetch(
@@ -29,7 +29,7 @@ const Search = () => {
     }
   };
   useEffect(() => {
-    getData('React')
+    getData('subject:computers')
       .then((data) => {
         setBooksData(data);
         console.log('something came back');
@@ -52,7 +52,7 @@ const Search = () => {
           {/* Book Cover */}
           <Image
             source={{
-              uri: item.volumeInfo.imageLinks.thumbnail,
+              uri: item.volumeInfo?.imageLinks?.thumbnail,
             }}
             resizeMode='cover'
             style={{ width: 100, height: 150, borderRadius: 10 }}
@@ -71,7 +71,7 @@ const Search = () => {
                 {item.volumeInfo.title}
               </Text>
               <Text style={{ ...FONTS.h3, color: COLORS.lightGray }}>
-                {item.volumeInfo.authors[0]}
+                {item.volumeInfo?.authors?.[0]}
               </Text>
             </View>
 
@@ -93,7 +93,7 @@ const Search = () => {
                   paddingHorizontal: SIZES.radius,
                 }}
               >
-                {item.volumeInfo.pageCount}
+                {item.volumeInfo.pageCount || '---'}
               </Text>
 
               <Image
@@ -112,13 +112,31 @@ const Search = () => {
                   paddingHorizontal: SIZES.radius,
                 }}
               >
-                {item.volumeInfo.publishedDate}
+                {item.volumeInfo.publishedDate || '---'}
               </Text>
             </View>
 
             {/* Genre */}
-            {/* <View style={{ flexDirection: 'row', marginTop: SIZES.base }}>
-              {item.genre.includes('Adventure') && (
+            <View style={{ flexDirection: 'row', marginTop: SIZES.base }}>
+              {item.volumeInfo?.categories?.map((cat, i) => (
+                <View
+                  key={i}
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: SIZES.base,
+                    marginRight: SIZES.base,
+                    backgroundColor: COLORS.darkGreen,
+                    height: 40,
+                    borderRadius: SIZES.radius,
+                  }}
+                >
+                  <Text style={{ ...FONTS.body3, color: COLORS.lightGreen }}>
+                    {cat}
+                  </Text>
+                </View>
+              ))}
+              {/* {item.genre.includes('Adventure') && (
                 <View
                   style={{
                     justifyContent: 'center',
@@ -168,8 +186,8 @@ const Search = () => {
                     Drama
                   </Text>
                 </View>
-              )}
-            </View> */}
+              )} */}
+            </View>
           </View>
         </TouchableOpacity>
 
