@@ -1,9 +1,11 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 
 import { COLORS, FONTS, SIZES, icons } from '../constants';
 
 function Header({ profile, setProfile }) {
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -75,6 +77,9 @@ function Header({ profile, setProfile }) {
             {profile.point} point
           </Text>
         </View>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+        <Text style={{ color: 'white' }}>Search</Text>
       </TouchableOpacity>
     </View>
   );

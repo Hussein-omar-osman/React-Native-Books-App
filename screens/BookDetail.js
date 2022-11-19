@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { COLORS } from '../constants';
 import {
@@ -8,31 +8,22 @@ import {
 } from '../components';
 
 const BookDetail = ({ route }) => {
-  const [book, setBook] = React.useState(null);
+  let { book } = route.params;
 
-  React.useEffect(() => {
-    let { book } = route.params;
-    setBook(book);
-  }, [book]);
+  return (
+    <View style={{ flex: 1, backgroundColor: COLORS.black }}>
+      {/* Book Cover Section */}
+      <View style={{ flex: 5 }}>{<BookInfoSection book={book} />}</View>
 
-  if (book) {
-    return (
-      <View style={{ flex: 1, backgroundColor: COLORS.black }}>
-        {/* Book Cover Section */}
-        <View style={{ flex: 5 }}>{<BookInfoSection book={book} />}</View>
+      {/* Description */}
+      <View style={{ flex: 3 }}>{<BookDescription book={book} />}</View>
 
-        {/* Description */}
-        <View style={{ flex: 3 }}>{<BookDescription book={book} />}</View>
-
-        {/* Buttons */}
-        <View style={{ height: 70, marginBottom: 30 }}>
-          {<BookBottomButton />}
-        </View>
+      {/* Buttons */}
+      <View style={{ height: 70, marginBottom: 30 }}>
+        {<BookBottomButton />}
       </View>
-    );
-  } else {
-    return <></>;
-  }
+    </View>
+  );
 };
 
 export default BookDetail;

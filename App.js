@@ -2,9 +2,10 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 
-import { BookDetail, Home } from './screens/';
+import { BookDetail, Home, Search } from './screens/';
 import { useFonts } from 'expo-font';
 import { View, Text, Button } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 const theme = {
   ...DefaultTheme,
@@ -27,22 +28,22 @@ const App = () => {
     return null;
   }
   return (
-    <NavigationContainer theme={theme}>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-        // initialRouteName={'Home'}
-      >
-        <Stack.Screen name='Dammy' component={Dammy} />
-        <Stack.Screen name='Home' component={Home} />
-        <Stack.Screen
-          name='BookDetail'
-          component={BookDetail}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <NavigationContainer theme={theme}>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+          // initialRouteName={'Home'}
+        >
+          {/* <Stack.Screen name='Dammy' component={Dammy} /> */}
+          <Stack.Screen name='Home' component={Home} />
+          <Stack.Screen name='BookDetail' component={BookDetail} />
+          <Stack.Screen name='Search' component={Search} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      <StatusBar style='light' />
+    </>
   );
 };
 

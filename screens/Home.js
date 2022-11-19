@@ -335,10 +335,10 @@ const Home = ({ navigation }) => {
         </View>
 
         {/* Categories Section */}
-        {/* <View style={{ marginTop: SIZES.padding }}>
+        <View style={{ marginTop: SIZES.padding }}>
           <View>{renderCategoryHeader()}</View>
           <View>{renderCategoryData()}</View>
-        </View> */}
+        </View>
 
         {/* <View>{renderMyBookSection(myBooks)}</View>
         <View>{renderMyBookSection(myBooks)}</View> */}
