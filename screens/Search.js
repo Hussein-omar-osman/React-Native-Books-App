@@ -53,11 +53,11 @@ const Search = () => {
       <View style={{ marginVertical: 15 }}>
         <TouchableOpacity
           style={{ flex: 1, flexDirection: 'row' }}
-          // onPress={() =>
-          //   navigation.navigate('BookDetail', {
-          //     book: item,
-          //   })
-          // }
+          onPress={() =>
+            navigation.navigate('BookDetail2', {
+              id: item.id,
+            })
+          }
         >
           {/* Book Cover */}
           <Image

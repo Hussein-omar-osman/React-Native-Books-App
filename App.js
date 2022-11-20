@@ -5,6 +5,7 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { BookDetail, Home, Search } from './screens/';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
+import BookDetaill2 from './screens/BookDetaill2';
 
 const theme = {
   ...DefaultTheme,
@@ -36,6 +37,7 @@ const App = () => {
         >
           <Stack.Screen name='Home' component={Home} />
           <Stack.Screen name='BookDetail' component={BookDetail} />
+          <Stack.Screen name='BookDetail2' component={BookDetaill2} />
           <Stack.Screen name='Search' component={Search} />
         </Stack.Navigator>
       </NavigationContainer>

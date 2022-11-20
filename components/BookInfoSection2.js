@@ -10,12 +10,12 @@ import {
 import { COLORS, FONTS, SIZES, icons } from '../constants';
 import LineDivider from './LineDivider';
 
-const BookInfoSection = ({ book }) => {
+const BookInfoSection2 = ({ book }) => {
   const navigation = useNavigation();
   return (
     <View style={{ flex: 1 }}>
       <ImageBackground
-        source={book.bookCover}
+        source={{ uri: book?.volumeInfo?.imageLinks?.thumbnail }}
         resizeMode='cover'
         style={{
           position: 'absolute',
@@ -66,9 +66,7 @@ const BookInfoSection = ({ book }) => {
         <View
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >
-          <Text style={{ ...FONTS.h3, color: book.navTintColor }}>
-            Book Detail
-          </Text>
+          <Text style={{ ...FONTS.h3, color: 'black' }}>Book Detail</Text>
         </View>
 
         <TouchableOpacity
@@ -93,7 +91,7 @@ const BookInfoSection = ({ book }) => {
         style={{ flex: 5, paddingTop: SIZES.padding2, alignItems: 'center' }}
       >
         <Image
-          source={book.bookCover}
+          source={{ uri: book?.volumeInfo?.imageLinks?.thumbnail }}
           resizeMode='contain'
           style={{
             flex: 1,
@@ -107,11 +105,11 @@ const BookInfoSection = ({ book }) => {
       <View
         style={{ flex: 1.8, alignItems: 'center', justifyContent: 'center' }}
       >
-        <Text style={{ ...FONTS.h2, color: book.navTintColor }}>
-          {book.bookName}
+        <Text style={{ ...FONTS.h2, color: 'black' }}>
+          {book.volumeInfo?.title}
         </Text>
-        <Text style={{ ...FONTS.body3, color: book.navTintColor }}>
-          {book.author}
+        <Text style={{ ...FONTS.body3, color: 'black' }}>
+          {book.volumeInfo?.authors?.[0]}
         </Text>
       </View>
 
@@ -128,7 +126,7 @@ const BookInfoSection = ({ book }) => {
         {/* Rating */}
         <View style={{ flex: 1, alignItems: 'center' }}>
           <Text style={{ ...FONTS.h3, color: COLORS.white }}>
-            {book.rating}
+            {book.volumeInfo?.averageRating || '---'}
           </Text>
           <Text style={{ ...FONTS.body4, color: COLORS.white }}>Rating</Text>
         </View>
@@ -144,7 +142,7 @@ const BookInfoSection = ({ book }) => {
           }}
         >
           <Text style={{ ...FONTS.h3, color: COLORS.white }}>
-            {book.pageNo}
+            {book.volumeInfo?.pageCount || '---'}
           </Text>
           <Text style={{ ...FONTS.body4, color: COLORS.white }}>
             Number of Page
@@ -156,7 +154,7 @@ const BookInfoSection = ({ book }) => {
         {/* Language */}
         <View style={{ flex: 1, alignItems: 'center' }}>
           <Text style={{ ...FONTS.h3, color: COLORS.white }}>
-            {book.language}
+            {book.volumeInfo?.language || '---'}
           </Text>
           <Text style={{ ...FONTS.body4, color: COLORS.white }}>Language</Text>
         </View>
@@ -165,4 +163,4 @@ const BookInfoSection = ({ book }) => {
   );
 };
 
-export default BookInfoSection;
+export default BookInfoSection2;
