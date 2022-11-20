@@ -27,7 +27,7 @@ const Search = () => {
   const getData = async (search) => {
     try {
       const res = await fetch(
-        `https://www.googleapis.com/books/v1/volumes/?q=${search}&country=US`
+        `https://www.googleapis.com/books/v1/volumes/?q=${search}&country=US&maxResults=20`
       );
       const data = res.json();
       return data;
