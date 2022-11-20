@@ -20,6 +20,11 @@ const BookDescription2 = ({ des }) => {
       ? scrollViewVisibleHeight - indicatorSize
       : 1;
 
+  const removeTags = (info) => {
+    const regex = /(<([^>]+)>)/gi;
+    return info.replace(regex, '');
+  };
+
   return (
     <View style={{ flex: 1, flexDirection: 'row', padding: SIZES.padding }}>
       {/* Custom Scrollbar */}
@@ -72,9 +77,11 @@ const BookDescription2 = ({ des }) => {
             marginBottom: SIZES.padding,
           }}
         >
-          Description
+          Description:
         </Text>
-        <Text style={{ ...FONTS.body2, color: COLORS.lightGray }}>{des}</Text>
+        <Text style={{ ...FONTS.body2, color: COLORS.lightGray }}>
+          {des && removeTags(des)}
+        </Text>
       </ScrollView>
     </View>
   );
