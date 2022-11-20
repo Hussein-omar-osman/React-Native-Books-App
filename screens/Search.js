@@ -7,16 +7,23 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  Keyboard,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { COLORS, FONTS, SIZES, icons, images } from '../constants';
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { COLORS, FONTS, SIZES, icons } from '../constants';
+import {
+  AntDesign,
+  FontAwesome,
+  Foundation,
+  Ionicons,
+} from '@expo/vector-icons';
 import getData from '../constants/getData';
 import { useNavigation } from '@react-navigation/native';
 
 const Search = () => {
   const navigation = useNavigation();
   const [booksData, setBooksData] = useState([]);
+  const [search, setSearch] = useState('');
   const getData = async (search) => {
     try {
       const res = await fetch(
@@ -28,15 +35,18 @@ const Search = () => {
       return err;
     }
   };
-  useEffect(() => {
-    getData('subject:computers')
+  const onSubmit = () => {
+    if (!search) return;
+    Keyboard.dismiss();
+    getData(search)
       .then((data) => {
         setBooksData(data);
         console.log('something came back');
       })
-      .catch((e) => console.log(e));
-  }, []);
-  // console.log(booksData);
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const renderItem = ({ item }) => {
     return (
@@ -77,34 +87,33 @@ const Search = () => {
 
             {/* Book Info */}
             <View style={{ flexDirection: 'row', marginTop: SIZES.radius }}>
-              <Image
-                source={icons.page_filled_icon}
-                resizeMode='contain'
-                style={{
-                  width: 20,
-                  height: 20,
-                  tintColor: COLORS.lightGray,
-                }}
+              <Foundation
+                name='page-multiple'
+                size={20}
+                color={COLORS.lightGray}
               />
               <Text
                 style={{
                   ...FONTS.body4,
                   color: COLORS.lightGray,
-                  paddingHorizontal: SIZES.radius,
+                  paddingHorizontal: 5,
+                  paddingRight: 17,
                 }}
               >
                 {item.volumeInfo.pageCount || '---'}
               </Text>
-
-              <Image
-                source={icons.read_icon}
-                resizeMode='contain'
+              <Ionicons name='time-sharp' size={20} color={COLORS.lightGray} />
+              <Text
                 style={{
-                  width: 20,
-                  height: 20,
-                  tintColor: COLORS.lightGray,
+                  ...FONTS.body4,
+                  color: COLORS.lightGray,
+                  paddingHorizontal: 5,
+                  paddingRight: 17,
                 }}
-              />
+              >
+                {item.volumeInfo.publishedDate || '---'}
+              </Text>
+              <FontAwesome name='language' size={20} color={COLORS.lightGray} />
               <Text
                 style={{
                   ...FONTS.body4,
@@ -112,7 +121,7 @@ const Search = () => {
                   paddingHorizontal: SIZES.radius,
                 }}
               >
-                {item.volumeInfo.publishedDate || '---'}
+                {item.volumeInfo.language || '---'}
               </Text>
             </View>
 
@@ -222,11 +231,13 @@ const Search = () => {
         }}
       >
         <AntDesign
-          // style={{ flex: 1 }}
           name='leftcircle'
           size={27}
           color={COLORS.primary}
-          onPress={() => navigation.navigate('Home')}
+          onPress={() => {
+            Keyboard.dismiss();
+            navigation.navigate('Home');
+          }}
         />
         <TextInput
           style={{
@@ -237,16 +248,22 @@ const Search = () => {
             borderRadius: 10,
             color: 'black',
           }}
+          autoCapitalize='none'
+          autoFocus
+          returnKeyType='search'
+          value={search}
+          onChangeText={(text) => setSearch(text)}
           placeholder='search...'
+          onSubmitEditing={onSubmit}
         />
         <FontAwesome
           name='search'
           size={27}
-          // color={COLORS.primary}
           color='#EFF5F5'
+          onPress={onSubmit}
         />
       </View>
-      <View style={{ marginTop: 5 }}>
+      <View style={{ marginTop: 1 }}>
         <View
           style={{
             marginTop: SIZES.radius,
