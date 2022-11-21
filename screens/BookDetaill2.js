@@ -46,7 +46,7 @@ const BookDetaill2 = ({ route }) => {
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.black }}>
       {/* Book Cover Section */}
-      <View style={{ flex: 5 }}>{<BookInfoSection2 book={bookData} />}</View>
+      <View style={{ flex: 4 }}>{<BookInfoSection2 book={bookData} />}</View>
 
       {/* Description */}
       <View style={{ flex: 3 }}>
@@ -54,9 +54,9 @@ const BookDetaill2 = ({ route }) => {
       </View>
 
       {/* Buttons */}
-      <View style={{ height: 70, marginBottom: 30 }}>
+      {/* <View style={{ height: 70, marginBottom: 30 }}>
         {<BookBottomButton />}
-      </View>
+      </View> */}
     </View>
   );
 };
