@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, FlatList, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { COLORS, FONTS, SIZES, icons } from '../constants';
 
-function BookSection({ myBooks }) {
+function BookSection({ myBooks, title }) {
   const navigation = useNavigation();
   const renderItem = ({ item, index }) => {
     return (
@@ -14,15 +14,17 @@ function BookSection({ myBooks }) {
           marginRight: SIZES.radius,
         }}
         onPress={() =>
-          navigation.navigate('BookDetail', {
-            book: item,
+          navigation.navigate('BookDetail2', {
+            id: item.id,
           })
         }
       >
         {/* Book Cover */}
         <Image
-          source={item.bookCover}
-          resizeMode='cover'
+          source={{
+            uri: item.volumeInfo?.imageLinks?.thumbnail,
+          }}
+          // resizeMode='contain'
           style={{
             width: 180,
             height: 250,
@@ -49,7 +51,7 @@ function BookSection({ myBooks }) {
           <Text
             style={{ marginLeft: 5, ...FONTS.body3, color: COLORS.lightGray }}
           >
-            {item.lastRead}
+            3d 5h
           </Text>
 
           <Image
@@ -64,7 +66,7 @@ function BookSection({ myBooks }) {
           <Text
             style={{ marginLeft: 5, ...FONTS.body3, color: COLORS.lightGray }}
           >
-            {item.completion}
+            45
           </Text>
         </View>
       </TouchableOpacity>
@@ -81,7 +83,7 @@ function BookSection({ myBooks }) {
           justifyContent: 'space-between',
         }}
       >
-        <Text style={{ ...FONTS.h2, color: COLORS.white }}>My Book</Text>
+        <Text style={{ ...FONTS.h2, color: COLORS.white }}>{title}</Text>
 
         <TouchableOpacity onPress={() => console.log('See More')}>
           <Text

@@ -19,6 +19,8 @@ import getData from '../constants/getData';
 import { useNavigation } from '@react-navigation/native';
 import BookList from '../components/BookList';
 
+const _renderitem = ({ item }) => <BookList item={item} />;
+
 const Search = () => {
   const navigation = useNavigation();
   const [booksData, setBooksData] = useState([]);
@@ -121,8 +123,6 @@ const Search = () => {
     </SafeAreaView>
   );
 };
-
-const _renderitem = ({ item }) => <BookList item={item} />;
 
 export default Search;
 

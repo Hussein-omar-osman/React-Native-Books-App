@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   View,
@@ -13,10 +13,36 @@ import { BookSection, ButtonsSection, Header } from '../components';
 import { COLORS, FONTS, SIZES, icons, images } from '../constants';
 
 const Home = ({ navigation }) => {
+  const [commic, setCommic] = useState([]);
+  const [romance, setRomance] = useState([]);
   const profileData = {
     name: 'Hussein',
     point: 200,
   };
+
+  const comicSJ = 'marvel and dc comic books+subject:fiction';
+  const romanceSJ = 'romantic+subject:romance';
+
+  const getData = async (search) => {
+    try {
+      const res = await fetch(
+        `https://www.googleapis.com/books/v1/volumes/?q=${search}&country=US&maxResults=10`
+      );
+      const data = res.json();
+      return data;
+    } catch (err) {
+      return err;
+    }
+  };
+
+  useEffect(() => {
+    getData(comicSJ)
+      .then((data) => setCommic(data.items))
+      .catch((err) => console.log(err));
+    getData(romanceSJ)
+      .then((data) => setRomance(data.items))
+      .catch((err) => console.log(err));
+  }, []);
 
   const bookOtherWordsForHome = {
     id: 1,
@@ -107,238 +133,241 @@ const Home = ({ navigation }) => {
   const [categories, setCategories] = React.useState(categoriesData);
   const [selectedCategory, setSelectedCategory] = React.useState(1);
 
-  function renderCategoryHeader() {
-    const renderItem = ({ item }) => {
-      return (
-        <TouchableOpacity
-          style={{ flex: 1, marginRight: SIZES.padding }}
-          onPress={() => setSelectedCategory(item.id)}
-        >
-          {selectedCategory == item.id && (
-            <Text style={{ ...FONTS.h2, color: COLORS.white }}>
-              {item.categoryName}
-            </Text>
-          )}
-          {selectedCategory != item.id && (
-            <Text style={{ ...FONTS.h2, color: COLORS.lightGray }}>
-              {item.categoryName}
-            </Text>
-          )}
-        </TouchableOpacity>
-      );
-    };
+  // function renderCategoryHeader() {
+  //   const renderItem = ({ item }) => {
+  //     return (
+  //       <TouchableOpacity
+  //         style={{ flex: 1, marginRight: SIZES.padding }}
+  //         onPress={() => setSelectedCategory(item.id)}
+  //       >
+  //         {selectedCategory == item.id && (
+  //           <Text style={{ ...FONTS.h2, color: COLORS.white }}>
+  //             {item.categoryName}
+  //           </Text>
+  //         )}
+  //         {selectedCategory != item.id && (
+  //           <Text style={{ ...FONTS.h2, color: COLORS.lightGray }}>
+  //             {item.categoryName}
+  //           </Text>
+  //         )}
+  //       </TouchableOpacity>
+  //     );
+  //   };
 
-    return (
-      <View style={{ flex: 1, paddingLeft: SIZES.padding }}>
-        <FlatList
-          data={categories}
-          showsHorizontalScrollIndicator={false}
-          renderItem={renderItem}
-          keyExtractor={(item) => `${item.id}`}
-          horizontal
-        />
-      </View>
-    );
-  }
+  //   return (
+  //     <View style={{ flex: 1, paddingLeft: SIZES.padding }}>
+  //       <FlatList
+  //         data={categories}
+  //         showsHorizontalScrollIndicator={false}
+  //         renderItem={renderItem}
+  //         keyExtractor={(item) => `${item.id}`}
+  //         horizontal
+  //       />
+  //     </View>
+  //   );
+  // }
 
-  function renderCategoryData() {
-    var books = [];
+  // function renderCategoryData() {
+  //   var books = [];
 
-    let selectedCategoryBooks = categories.filter(
-      (a) => a.id == selectedCategory
-    );
+  //   let selectedCategoryBooks = categories.filter(
+  //     (a) => a.id == selectedCategory
+  //   );
 
-    if (selectedCategoryBooks.length > 0) {
-      books = selectedCategoryBooks[0].books;
-    }
+  //   if (selectedCategoryBooks.length > 0) {
+  //     books = selectedCategoryBooks[0].books;
+  //   }
 
-    const renderItem = ({ item }) => {
-      return (
-        <View style={{ marginVertical: SIZES.base }}>
-          <TouchableOpacity
-            style={{ flex: 1, flexDirection: 'row' }}
-            onPress={() =>
-              navigation.navigate('BookDetail', {
-                book: item,
-              })
-            }
-          >
-            {/* Book Cover */}
-            <Image
-              source={item.bookCover}
-              resizeMode='cover'
-              style={{ width: 100, height: 150, borderRadius: 10 }}
-            />
+  //   const renderItem = ({ item }) => {
+  //     return (
+  //       <View style={{ marginVertical: SIZES.base }}>
+  //         <TouchableOpacity
+  //           style={{ flex: 1, flexDirection: 'row' }}
+  //           onPress={() =>
+  //             navigation.navigate('BookDetail', {
+  //               book: item,
+  //             })
+  //           }
+  //         >
+  //           {/* Book Cover */}
+  //           <Image
+  //             source={item.bookCover}
+  //             resizeMode='cover'
+  //             style={{ width: 100, height: 150, borderRadius: 10 }}
+  //           />
 
-            <View style={{ flex: 1, marginLeft: SIZES.radius }}>
-              {/* Book name and author */}
-              <View>
-                <Text
-                  style={{
-                    paddingRight: SIZES.padding,
-                    ...FONTS.h2,
-                    color: COLORS.white,
-                  }}
-                >
-                  {item.bookName}
-                </Text>
-                <Text style={{ ...FONTS.h3, color: COLORS.lightGray }}>
-                  {item.author}
-                </Text>
-              </View>
+  //           <View style={{ flex: 1, marginLeft: SIZES.radius }}>
+  //             {/* Book name and author */}
+  //             <View>
+  //               <Text
+  //                 style={{
+  //                   paddingRight: SIZES.padding,
+  //                   ...FONTS.h2,
+  //                   color: COLORS.white,
+  //                 }}
+  //               >
+  //                 {item.bookName}
+  //               </Text>
+  //               <Text style={{ ...FONTS.h3, color: COLORS.lightGray }}>
+  //                 {item.author}
+  //               </Text>
+  //             </View>
 
-              {/* Book Info */}
-              <View style={{ flexDirection: 'row', marginTop: SIZES.radius }}>
-                <Image
-                  source={icons.page_filled_icon}
-                  resizeMode='contain'
-                  style={{
-                    width: 20,
-                    height: 20,
-                    tintColor: COLORS.lightGray,
-                  }}
-                />
-                <Text
-                  style={{
-                    ...FONTS.body4,
-                    color: COLORS.lightGray,
-                    paddingHorizontal: SIZES.radius,
-                  }}
-                >
-                  {item.pageNo}
-                </Text>
+  //             {/* Book Info */}
+  //             <View style={{ flexDirection: 'row', marginTop: SIZES.radius }}>
+  //               <Image
+  //                 source={icons.page_filled_icon}
+  //                 resizeMode='contain'
+  //                 style={{
+  //                   width: 20,
+  //                   height: 20,
+  //                   tintColor: COLORS.lightGray,
+  //                 }}
+  //               />
+  //               <Text
+  //                 style={{
+  //                   ...FONTS.body4,
+  //                   color: COLORS.lightGray,
+  //                   paddingHorizontal: SIZES.radius,
+  //                 }}
+  //               >
+  //                 {item.pageNo}
+  //               </Text>
 
-                <Image
-                  source={icons.read_icon}
-                  resizeMode='contain'
-                  style={{
-                    width: 20,
-                    height: 20,
-                    tintColor: COLORS.lightGray,
-                  }}
-                />
-                <Text
-                  style={{
-                    ...FONTS.body4,
-                    color: COLORS.lightGray,
-                    paddingHorizontal: SIZES.radius,
-                  }}
-                >
-                  {item.readed}
-                </Text>
-              </View>
+  //               <Image
+  //                 source={icons.read_icon}
+  //                 resizeMode='contain'
+  //                 style={{
+  //                   width: 20,
+  //                   height: 20,
+  //                   tintColor: COLORS.lightGray,
+  //                 }}
+  //               />
+  //               <Text
+  //                 style={{
+  //                   ...FONTS.body4,
+  //                   color: COLORS.lightGray,
+  //                   paddingHorizontal: SIZES.radius,
+  //                 }}
+  //               >
+  //                 {item.readed}
+  //               </Text>
+  //             </View>
 
-              {/* Genre */}
-              <View style={{ flexDirection: 'row', marginTop: SIZES.base }}>
-                {item.genre.includes('Adventure') && (
-                  <View
-                    style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      padding: SIZES.base,
-                      marginRight: SIZES.base,
-                      backgroundColor: COLORS.darkGreen,
-                      height: 40,
-                      borderRadius: SIZES.radius,
-                    }}
-                  >
-                    <Text style={{ ...FONTS.body3, color: COLORS.lightGreen }}>
-                      Adventure
-                    </Text>
-                  </View>
-                )}
-                {item.genre.includes('Romance') && (
-                  <View
-                    style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      padding: SIZES.base,
-                      marginRight: SIZES.base,
-                      backgroundColor: COLORS.darkRed,
-                      height: 40,
-                      borderRadius: SIZES.radius,
-                    }}
-                  >
-                    <Text style={{ ...FONTS.body3, color: COLORS.lightRed }}>
-                      Romance
-                    </Text>
-                  </View>
-                )}
-                {item.genre.includes('Drama') && (
-                  <View
-                    style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      padding: SIZES.base,
-                      marginRight: SIZES.base,
-                      backgroundColor: COLORS.darkBlue,
-                      height: 40,
-                      borderRadius: SIZES.radius,
-                    }}
-                  >
-                    <Text style={{ ...FONTS.body3, color: COLORS.lightBlue }}>
-                      Drama
-                    </Text>
-                  </View>
-                )}
-              </View>
-            </View>
-          </TouchableOpacity>
+  //             {/* Genre */}
+  //             <View style={{ flexDirection: 'row', marginTop: SIZES.base }}>
+  //               {item.genre.includes('Adventure') && (
+  //                 <View
+  //                   style={{
+  //                     justifyContent: 'center',
+  //                     alignItems: 'center',
+  //                     padding: SIZES.base,
+  //                     marginRight: SIZES.base,
+  //                     backgroundColor: COLORS.darkGreen,
+  //                     height: 40,
+  //                     borderRadius: SIZES.radius,
+  //                   }}
+  //                 >
+  //                   <Text style={{ ...FONTS.body3, color: COLORS.lightGreen }}>
+  //                     Adventure
+  //                   </Text>
+  //                 </View>
+  //               )}
+  //               {item.genre.includes('Romance') && (
+  //                 <View
+  //                   style={{
+  //                     justifyContent: 'center',
+  //                     alignItems: 'center',
+  //                     padding: SIZES.base,
+  //                     marginRight: SIZES.base,
+  //                     backgroundColor: COLORS.darkRed,
+  //                     height: 40,
+  //                     borderRadius: SIZES.radius,
+  //                   }}
+  //                 >
+  //                   <Text style={{ ...FONTS.body3, color: COLORS.lightRed }}>
+  //                     Romance
+  //                   </Text>
+  //                 </View>
+  //               )}
+  //               {item.genre.includes('Drama') && (
+  //                 <View
+  //                   style={{
+  //                     justifyContent: 'center',
+  //                     alignItems: 'center',
+  //                     padding: SIZES.base,
+  //                     marginRight: SIZES.base,
+  //                     backgroundColor: COLORS.darkBlue,
+  //                     height: 40,
+  //                     borderRadius: SIZES.radius,
+  //                   }}
+  //                 >
+  //                   <Text style={{ ...FONTS.body3, color: COLORS.lightBlue }}>
+  //                     Drama
+  //                   </Text>
+  //                 </View>
+  //               )}
+  //             </View>
+  //           </View>
+  //         </TouchableOpacity>
 
-          {/* Bookmark Button */}
-          <TouchableOpacity
-            style={{ position: 'absolute', top: 5, right: 15 }}
-            onPress={() => console.log('Bookmark')}
-          >
-            <Image
-              source={icons.bookmark_icon}
-              resizeMode='contain'
-              style={{
-                width: 25,
-                height: 25,
-                tintColor: COLORS.lightGray,
-              }}
-            />
-          </TouchableOpacity>
-        </View>
-      );
-    };
+  //         {/* Bookmark Button */}
+  //         <TouchableOpacity
+  //           style={{ position: 'absolute', top: 5, right: 15 }}
+  //           onPress={() => console.log('Bookmark')}
+  //         >
+  //           <Image
+  //             source={icons.bookmark_icon}
+  //             resizeMode='contain'
+  //             style={{
+  //               width: 25,
+  //               height: 25,
+  //               tintColor: COLORS.lightGray,
+  //             }}
+  //           />
+  //         </TouchableOpacity>
+  //       </View>
+  //     );
+  //   };
 
-    return (
-      <View
-        style={{ flex: 1, marginTop: SIZES.radius, paddingLeft: SIZES.padding }}
-      >
-        <FlatList
-          data={books}
-          renderItem={renderItem}
-          keyExtractor={(item) => `${item.id}`}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
-    );
-  }
+  //   return (
+  //     <View
+  //       style={{ flex: 1, marginTop: SIZES.radius, paddingLeft: SIZES.padding }}
+  //     >
+  //       <FlatList
+  //         data={books}
+  //         renderItem={renderItem}
+  //         keyExtractor={(item) => `${item.id}`}
+  //         showsVerticalScrollIndicator={false}
+  //       />
+  //     </View>
+  //   );
+  // }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.black }}>
       {/* Header Section */}
-      <View style={{ height: 200, marginTop: 20 }}>
-        {/* {Header(profile)} */}
+      <View style={{ height: 80, marginTop: 20 }}>
         <Header profile={profile} setProfile={setProfile} />
-        <ButtonsSection />
+        {/* <ButtonsSection /> */}
       </View>
 
       {/* Body Section */}
       <ScrollView style={{ marginTop: SIZES.radius }}>
         {/* Books Section */}
         <View>
-          <BookSection myBooks={myBooks} />
+          <BookSection myBooks={commic} title='Fiction & Comics' />
+        </View>
+
+        <View>
+          <BookSection myBooks={romance} title='Romance' />
         </View>
 
         {/* Categories Section */}
-        <View style={{ marginTop: SIZES.padding }}>
+        {/* <View style={{ marginTop: SIZES.padding }}>
           <View>{renderCategoryHeader()}</View>
           <View>{renderCategoryData()}</View>
-        </View>
+        </View> */}
 
         {/* <View>{renderMyBookSection(myBooks)}</View>
         <View>{renderMyBookSection(myBooks)}</View> */}

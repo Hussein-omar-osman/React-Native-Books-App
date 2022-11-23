@@ -19,9 +19,9 @@ function Header({ profile, setProfile }) {
       <View style={{ flex: 1 }}>
         <View style={{ marginRight: SIZES.padding }}>
           <Text style={{ ...FONTS.h3, color: COLORS.white }}>Good Morning</Text>
-          <Text style={{ ...FONTS.h2, color: COLORS.white }}>
+          {/* <Text style={{ ...FONTS.h2, color: COLORS.white }}>
             {profile.name}
-          </Text>
+          </Text> */}
         </View>
       </View>
 
